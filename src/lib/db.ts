@@ -16,10 +16,16 @@ export async function getDb(): Promise<Db> {
   return db;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-object-type
 export async function getCollection<TSchema extends {} = any>(
   name: string
 ): Promise<Collection<TSchema>> {
   const db = await getDb();
   return db.collection<TSchema>(name);
+}
+
+export async function closeDb(): Promise<void> {
+  if (globalForMongo._mongo) {
+    await globalForMongo._mongo.client.close();
+    globalForMongo._mongo = undefined;
+  }
 }
