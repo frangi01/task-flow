@@ -1,6 +1,7 @@
-"use client";
-import { createSession } from "@/lib/session";
+"use server";
+import { createSession, deleteSession } from "@/lib/session";
 import { FormState, LoginFormSchema } from "@/types/auth-types";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 export async function loginAction(state: FormState, formData: FormData) {
@@ -21,7 +22,10 @@ export async function loginAction(state: FormState, formData: FormData) {
 
   const { email, password } = validatedFields.data;
 
-  const res = await fetch('/api/auth/login', {
+  const host = (await headers()).get("host")!;
+  const proto = process.env.NODE_ENV === "development" ? "http" : "https";
+
+  const res = await fetch(`${proto}://${host}/api/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -38,7 +42,7 @@ export async function loginAction(state: FormState, formData: FormData) {
 }
 
 
-// export async function logout() {
-//   await deleteSession()
-//   redirect('/login')
-// }
+export async function logoutAction() {
+  await deleteSession()
+  //redirect('/login')
+}

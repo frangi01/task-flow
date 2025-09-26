@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 
 export default function DashboardPage() {
   return (
-    <div className="bg-gray-50 py-24 sm:py-32 dark:bg-gray-900">
+    <div className="bg-gray-50 py-14 dark:bg-gray-900 min-h-screen">
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
         <p className="max-w-lg text-4xl font-semibold tracking-tight text-balance text-gray-950 sm:text-5xl dark:text-white">
           Projects
@@ -26,7 +26,7 @@ export default function DashboardPage() {
 function Card() {
   return (
     <div className="relative" onClick={()=> redirect('dashboard/projects/1')}>
-      <div className="absolute inset-px rounded-lg bg-white dark:bg-gray-800" />
+      <div className="absolute inset-px rounded-lg bg-white dark:bg-gray-800 transition shadow-xl" />
       <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
         <div className="px-8 pt-8 sm:px-10 sm:pt-10">
           <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center dark:text-white">
@@ -59,7 +59,7 @@ function Card2() {
   return (
     <div className="relative">
       <div className="absolute inset-px rounded-lg bg-white max-lg:rounded-t-4xl dark:bg-gray-800" />
-      <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)]">
+      <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
         <div className="px-8 pt-8 sm:px-10 sm:pt-10">
           <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center dark:text-white">
             Performance
@@ -82,7 +82,7 @@ function Card2() {
           />
         </div>
       </div>
-      <div className="pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-black/5 max-lg:rounded-t-4xl dark:outline-white/15" />
+      <div className="pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-black/5 dark:outline-white/15" />
     </div>
   );
 }
