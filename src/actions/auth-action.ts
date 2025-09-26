@@ -1,4 +1,7 @@
+"use client";
+import { createSession } from "@/lib/session";
 import { FormState, LoginFormSchema } from "@/types/auth-types";
+import { redirect } from "next/navigation";
 
 export async function loginAction(state: FormState, formData: FormData) {
   // Validate form fields
@@ -17,7 +20,6 @@ export async function loginAction(state: FormState, formData: FormData) {
   // Call the provider or db to create a user...
 
   const { email, password } = validatedFields.data;
-
   const res = await fetch('/api/auth/login', {
       method: 'POST',
       headers: {
@@ -25,16 +27,15 @@ export async function loginAction(state: FormState, formData: FormData) {
       },
       body: JSON.stringify({ email, password }),
     });
-  //TODO recupera l'utentge
+
+  const json_res = await res.json();
 
 
 
   // 4. Create user session
-  //await createSession(user.id)
+  await createSession(json_res._id)
   // 5. Redirect user
-  //redirect('/dashboard')
-
-
+  redirect('/dashboard')
 }
 
 
