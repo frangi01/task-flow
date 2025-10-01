@@ -16,7 +16,8 @@ export async function getDb(): Promise<Db> {
   return db;
 }
 
-export async function getCollection<TSchema extends {} = any>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function getCollection<TSchema extends object = any>(
   name: string
 ): Promise<Collection<TSchema>> {
   const db = await getDb();

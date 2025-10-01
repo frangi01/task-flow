@@ -1,68 +1,66 @@
 "use client";
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, BellIcon, SunIcon, XMarkIcon } from '@heroicons/react/24/outline'
-
-const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
-]
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
-}
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+} from "@headlessui/react";
+import {
+  Bars3Icon,
+  BellIcon,
+  SunIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
+import SidebarContent from "./sidebar-content";
 
 export default function Navbar() {
+  const toggleTranslateX = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.classList.toggle("-translate-x-full");
+    }
+  };
+
   return (
     <Disclosure
       as="nav"
-      className="relative bg-gray-800 dark:bg-gray-800/50 dark:after:pointer-events-none dark:after:absolute dark:after:inset-x-0 dark:after:bottom-0 dark:after:h-px dark:after:bg-white/10"
+      className="relative bg-white text-black dark:bg-gray-800/50 dark:after:pointer-events-none dark:after:absolute dark:after:inset-x-0 dark:after:bottom-0 dark:after:h-px dark:after:bg-white/10"
     >
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div className="relative flex h-16 items-center justify-between">
+      <div className="mx-auto px-2 sm:px-6 lg:px-8 xl:px-12">
+        <div className="relative flex h-16 items-center justify-end">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             {/* Mobile menu button*/}
-            <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline-2 focus:-outline-offset-1 focus:outline-indigo-500">
+            {/* <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline-2 focus:-outline-offset-1 focus:outline-indigo-500">
               <span className="absolute -inset-0.5" />
               <span className="sr-only">Open main menu</span>
               <Bars3Icon aria-hidden="true" className="block size-6 group-data-open:hidden" />
               <XMarkIcon aria-hidden="true" className="hidden size-6 group-data-open:block" />
+            </DisclosureButton> */}
+
+            {/* <div className="text-center">
+              <button  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="button" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" aria-controls="drawer-navigation">
+              Show navigation
+              </button>
+            </div> */}
+
+            <DisclosureButton
+              onClick={() => toggleTranslateX("drawer-navigation")}
+              className="inline-flex items-center justify-center rounded-md p-2
+                text-gray-700 hover:bg-gray-200
+                focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500
+                dark:text-gray-200 dark:hover:bg-gray-700"
+            >
+              <Bars3Icon aria-hidden="true" className="size-6" />
             </DisclosureButton>
-          </div>
-          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex shrink-0 items-center">
-              <img
-                alt="Your Company"
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                className="h-8 w-auto"
-              />
-            </div>
-            <div className="hidden sm:ml-6 sm:block">
-              <div className="flex space-x-4">
-                {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    aria-current={item.current ? 'page' : undefined}
-                    className={classNames(
-                      item.current
-                        ? 'bg-gray-900 text-white dark:bg-gray-950/50'
-                        : 'text-gray-300 hover:bg-white/5 hover:text-white',
-                      'rounded-md px-3 py-2 text-sm font-medium',
-                    )}
-                  >
-                    {item.name}
-                  </a>
-                ))}
-              </div>
-            </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <button
               type="button"
               className="relative rounded-full p-1 text-gray-400 dark:hover:text-white cursor-pointer"
-              onClick={() => document.documentElement.classList.toggle("dark") }
+              onClick={() => document.documentElement.classList.toggle("dark")}
             >
               <span className="absolute -inset-1.5" />
               <span className="sr-only">Toggle Dark Mode</span>
@@ -124,26 +122,47 @@ export default function Navbar() {
         </div>
       </div>
 
-      <DisclosurePanel className="sm:hidden">
-        <div className="space-y-1 px-2 pt-2 pb-3">
-          {navigation.map((item) => (
-            <DisclosureButton
-              key={item.name}
-              as="a"
-              href={item.href}
-              aria-current={item.current ? 'page' : undefined}
-              className={classNames(
-                item.current
-                  ? 'bg-gray-900 text-white dark:bg-gray-950/50'
-                  : 'text-gray-300 hover:bg-white/5 hover:text-white',
-                'block rounded-md px-3 py-2 text-base font-medium',
-              )}
-            >
-              {item.name}
-            </DisclosureButton>
-          ))}
+      {/*asdasdasd*/}
+      <div
+        id="drawer-navigation"
+        className="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white w-64 dark:bg-gray-800"
+        tabIndex={-1}
+        aria-labelledby="drawer-navigation-label"
+      >
+        <h5
+          id="drawer-navigation-label"
+          className="text-base font-semibold text-gray-500 uppercase dark:text-gray-400"
+        >
+          Menu
+        </h5>
+        <button
+          onClick={() => toggleTranslateX("drawer-navigation")}
+          type="button"
+          data-drawer-hide="drawer-navigation"
+          aria-controls="drawer-navigation"
+          className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer"
+        >
+          <svg
+            className="w-3 h-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              strokeLinejoin="round"
+              stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+            />
+          </svg>
+          <span className="sr-only">Close menu</span>
+        </button>
+        <div className="py-4 overflow-y-auto">
+          <SidebarContent></SidebarContent>
         </div>
-      </DisclosurePanel>
+      </div>
     </Disclosure>
-  )
+  );
 }

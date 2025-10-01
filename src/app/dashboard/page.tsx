@@ -25,7 +25,7 @@ export default function DashboardPage() {
 
 function Card() {
   return (
-    <div className="relative" onClick={()=> redirect('dashboard/projects/1')}>
+    <div className="relative cursor-pointer" onClick={()=> redirect('dashboard/projects/1')}>
       <div className="absolute inset-px rounded-lg bg-white dark:bg-gray-800 transition shadow-xl" />
       <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
         <div className="px-8 pt-8 sm:px-10 sm:pt-10">
@@ -57,7 +57,7 @@ function Card() {
 
 function Card2() {
   return (
-    <div className="relative">
+    <div className="relative cursor-pointer">
       <div className="absolute inset-px rounded-lg bg-white max-lg:rounded-t-4xl dark:bg-gray-800" />
       <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
         <div className="px-8 pt-8 sm:px-10 sm:pt-10">
