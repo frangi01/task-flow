@@ -1,81 +1,76 @@
-import {
-  ArcElement,
-  CategoryScale,
-  Chart,
-  DoughnutController,
-  Legend,
-  LinearScale,
-  LineController,
-  LineElement,
-  PieController,
-  PointElement,
-  Tooltip,
-} from "chart.js";
-import { title } from "process";
-import { useEffect, useRef } from "react";
+"use client";
+import { useEffect, useState } from "react";
 import { IoMdDoneAll } from "react-icons/io";
+import { Chart } from "react-google-charts";
 
-Chart.register(
-  ArcElement,
-  DoughnutController,
-  Tooltip,
-  Legend,
-  // opzionali / ereditati dal tuo snippet
-  CategoryScale,
-  LinearScale,
-  LineController,
-  LineElement,
-  PointElement
-);
+
+// Chart.register(
+//   ArcElement,
+//   DoughnutController,
+//   Tooltip,
+//   Legend,
+//   // opzionali / ereditati dal tuo snippet
+//   CategoryScale,
+//   LinearScale,
+//   LineController,
+//   LineElement,
+//   PointElement
+// );
 
 export default function TabSummary() {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const chartRef = useRef<Chart | null>(null);
 
-  const data = {
-    title: "asd",
-    labels: ["In progress", "To do"],
-    datasets: [
-      {
-        label: "My First Dataset",
-        data: [300, 50],
-        backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)"],
-        hoverOffset: 3,
-      },
-    ],
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-    },
-  };
-
-  const config = {
-    type: "doughnut",
-    data: data,
-  };
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    const ctx = canvasRef.current!.getContext("2d")!;
-    chartRef.current = new Chart(ctx, config);
+    const html = document.documentElement;
+    setIsDark(html.classList.contains("dark"));
+    const observer = new MutationObserver(() => {
+      setIsDark(html.classList.contains("dark"));
+    });
 
-    return () => chartRef.current?.destroy();
+    observer.observe(html, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
   }, []);
 
-  const downloadPng = () => {
-    const url = canvasRef.current!.toDataURL("image/png");
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "chart.png";
-    a.click();
-  };
+  const data2 = [
+    ["Task", "Hours per Day"],
+    ["Work", 11],
+    ["Eat", 2],
+    ["Commute", 2],
+    ["Watch TV", 2],
+    ["Sleep", 7],
+  ];
+
+const options2 = {
+  title: "My Daily Activities",
+  pieHole: 0.4,
+  is3D: false,
+  backgroundColor: isDark ? "#1f2937" : "#ffffff",
+  chartArea: { width: "90%", height: "80%" },
+  titleTextStyle: { color: isDark ? "#fff" : "#111", fontSize: 18 },
+  legend: {
+    position: "bottom",
+    alignment: "center",
+    textStyle: {
+      color: isDark ? "#fff" : "#333",
+      fontSize: 14, // ← realistic size that actually renders
+      bold: true,
+    },
+  },
+};
+
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="">
         <div className="mb-8">
-          <div className="grid grid-cols-2 gap-x-3 gap-y-6 md:gap-x-3 md:gap-y-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-3 gap-y-6 md:gap-x-3 md:gap-y-10">
             <div className="col-span-1">
-              <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg border p-6">
+              <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg border p-4">
                 <div className="flex items-start gap-2.5">
                   <IoMdDoneAll size={32} className="rounded-full" />
                   <div className="flex flex-col w-full max-w-[320px] leading-1.5">
@@ -94,7 +89,7 @@ export default function TabSummary() {
             </div>
 
             <div className="col-span-1">
-              <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg border p-6">
+              <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg border p-4">
                 <div className="flex items-start gap-2.5">
                   <IoMdDoneAll size={32} className="rounded-full" />
                   <div className="flex flex-col w-full max-w-[320px] leading-1.5">
@@ -113,7 +108,7 @@ export default function TabSummary() {
             </div>
 
             <div className="col-span-1">
-              <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg border p-6">
+              <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg border p-4">
                 <div className="flex items-start gap-2.5">
                   <IoMdDoneAll size={32} className="rounded-full" />
                   <div className="flex flex-col w-full max-w-[320px] leading-1.5">
@@ -132,7 +127,7 @@ export default function TabSummary() {
             </div>
 
             <div className="col-span-1">
-              <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg border p-6">
+              <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg border p-4">
                 <div className="flex items-start gap-2.5">
                   <IoMdDoneAll size={32} className="rounded-full" />
                   <div className="flex flex-col w-full max-w-[320px] leading-1.5">
@@ -151,15 +146,46 @@ export default function TabSummary() {
             </div>
           </div>
         </div>
+
+        <div className="mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-3 gap-y-6 md:gap-x-3 md:gap-y-10">
+            <div className="col-span-1">
+              <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg border p-4">
+                <div className="flex items-start gap-2.5">
+                  <Chart
+                    chartType="PieChart"
+                    width="100%"
+                    height="400px"
+
+                    data={data2}
+                    options={options2}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="col-span-1">
+              <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg border p-4">
+                <div className="flex items-start gap-2.5">
+                  <h3 className="text-gray-900 dark:text-white text-xl font-extrabold mb-2">
+                    Activity
+                  </h3>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mb-8">
           <h1 className="text-gray-900 dark:text-white text-3xl md:text-5xl font-extrabold mb-2">
             Status overview
           </h1>
 
-          <div style={{ height: 300 }}>
-            <canvas ref={canvasRef} />
+          {/* <div style={{ height: 300 }}>
+            <canvas ref={
+            canvasRef} />
             <button onClick={downloadPng}>Scarica PNG</button>
-          </div>
+          </div> */}
 
           <a
             href="#"

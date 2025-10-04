@@ -9,6 +9,7 @@ import { CgCodeSlash, CgList, CgShortcut } from "react-icons/cg";
 import { BsClock } from "react-icons/bs";
 import TabSummary from "@/components/projects/tabs/summary";
 import React from "react";
+import TabTimeline from "@/components/projects/tabs/timeline";
 
 interface Tab {
   id: string;
@@ -22,29 +23,76 @@ export default function DashboardPage() {
   const params = useParams();
   const id = params.id; // [id] from URL
 
-const tabs: Tab[] = useMemo(() => [
-  { id: "summary", label: "Summary", icon: <CiGlobe size={16} />, component: <TabSummary /> },
-  { id: "timeline", label: "Timeline", icon: <BsClock size={16} />, component: null },
-  { id: "backlog", label: "Backlog", icon: null, component: null },
-  { id: "board", label: "Board", icon: <TfiBlackboard size={16} />, component: null },
-  { id: "calendar", label: "Calendar", icon: <CiCalendar size={16} />, component: null },
-  { id: "list", label: "List", icon: <CgList size={16} />, component: null },
-  { id: "forms", label: "Forms", icon: null, component: null },
-  { id: "goals", label: "Goals", icon: null, component: null },
-  { id: "development", label: "Development", icon: null, component: null },
-  { id: "code", label: "Code", icon: <CgCodeSlash size={16} />, component: null },
-  { id: "security", label: "Security", icon: null, component: null },
-  { id: "releases", label: "Releases", icon: null, component: null },
-  { id: "deployments", label: "Deployments", icon: null, component: null },
-  { id: "archive", label: "Archive", icon: null, component: null },
-  { id: "pages", label: "Pages", icon: null, component: null },
-  { id: "shortcuts", label: "Shortcuts", icon: <CgShortcut size={16} />, component: null },
-  { id: "teams", label: "Teams", icon: <GoPeople size={16} />, component: null },
-  { id: "Settings", label: "Settings", icon: <CiSettings size={16} />, component: null },
-], []);
+  const tabs: Tab[] = useMemo(
+    () => [
+      {
+        id: "summary",
+        label: "Summary",
+        icon: <CiGlobe size={16} />,
+        component: <TabSummary />,
+      },
+      {
+        id: "timeline",
+        label: "Timeline",
+        icon: <BsClock size={16} />,
+        component: <TabTimeline />,
+      },
+      { id: "backlog", label: "Backlog", icon: null, component: null },
+      {
+        id: "board",
+        label: "Board",
+        icon: <TfiBlackboard size={16} />,
+        component: null,
+      },
+      {
+        id: "calendar",
+        label: "Calendar",
+        icon: <CiCalendar size={16} />,
+        component: null,
+      },
+      {
+        id: "list",
+        label: "List",
+        icon: <CgList size={16} />,
+        component: null,
+      },
+      { id: "forms", label: "Forms", icon: null, component: null },
+      { id: "goals", label: "Goals", icon: null, component: null },
+      { id: "development", label: "Development", icon: null, component: null },
+      {
+        id: "code",
+        label: "Code",
+        icon: <CgCodeSlash size={16} />,
+        component: null,
+      },
+      { id: "security", label: "Security", icon: null, component: null },
+      { id: "releases", label: "Releases", icon: null, component: null },
+      { id: "deployments", label: "Deployments", icon: null, component: null },
+      { id: "archive", label: "Archive", icon: null, component: null },
+      { id: "pages", label: "Pages", icon: null, component: null },
+      {
+        id: "shortcuts",
+        label: "Shortcuts",
+        icon: <CgShortcut size={16} />,
+        component: null,
+      },
+      {
+        id: "teams",
+        label: "Teams",
+        icon: <GoPeople size={16} />,
+        component: null,
+      },
+      {
+        id: "Settings",
+        label: "Settings",
+        icon: <CiSettings size={16} />,
+        component: null,
+      },
+    ],
+    []
+  );
 
-
-  const MORE_BUTTON_WIDTH = 80; // Reserve 80px for the "More +" button
+  const MORE_BUTTON_WIDTH = 120; // Reserve 80px for the "More +" button
   const tabsRef = useRef<HTMLUListElement>(null);
 
   const [hiddenTabs, setHiddenTabs] = useState<Tab[]>([]);
@@ -83,7 +131,7 @@ const tabs: Tab[] = useMemo(() => [
 
   return (
     <div className="bg-gray-50 py-14 dark:bg-gray-900 min-h-screen">
-      <div className="lg:px-8 overflow-hidden">
+      <div className="px-8 overflow-hidden">
         <nav className="flex" aria-label="Breadcrumb">
           <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
             <li className="inline-flex items-center">
@@ -182,7 +230,7 @@ const tabs: Tab[] = useMemo(() => [
           </ul>
         </div>
 
-        <div className="p-4 rounded-lg bg-gray-50 dark:bg-gray-800 min-h-[200px]">
+        <div className="rounded-lg bg-gray-50 dark:bg-gray-800 min-h-[200px]">
           {tabs.find((tab) => tab.id === activeTab)?.component || (
             <p className="text-gray-500 dark:text-gray-400">
               No content for this tab.

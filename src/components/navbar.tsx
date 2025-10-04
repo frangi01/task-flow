@@ -109,7 +109,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/*asdasdasd*/}
       <div
         id="drawer-navigation"
         className="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white w-64 dark:bg-gray-800"
