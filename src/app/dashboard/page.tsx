@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 
 export default function DashboardPage() {
   return (
-    <div className="bg-gray-50 py-14 dark:bg-gray-900 min-h-screen">
+    <div className="bg-gray-100 py-14 dark:bg-gray-900 min-h-screen">
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
         <p className="max-w-lg text-4xl font-semibold tracking-tight text-balance text-gray-950 sm:text-5xl dark:text-white">
           Projects

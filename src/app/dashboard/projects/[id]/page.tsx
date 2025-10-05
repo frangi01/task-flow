@@ -130,7 +130,7 @@ export default function DashboardPage() {
   }, []); // no dependency needed
 
   return (
-    <div className="bg-gray-50 py-14 dark:bg-gray-900 min-h-screen">
+    <div className="bg-gray-100 py-14 dark:bg-gray-900 min-h-screen">
       <div className="px-8 overflow-hidden">
         <nav className="flex" aria-label="Breadcrumb">
           <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
@@ -171,7 +171,7 @@ export default function DashboardPage() {
           </ol>
         </nav>
 
-        <div className="mb-4 border-b border-gray-200 dark:border-gray-700 relative">
+        <div className="mb-4 border-b border-gray-200 dark:border-gray-700 relative mt-4">
           <ul
             ref={tabsRef}
             className="flex flex-nowrap w-full -mb-px text-sm font-medium text-center"
@@ -230,7 +230,7 @@ export default function DashboardPage() {
           </ul>
         </div>
 
-        <div className="rounded-lg bg-gray-50 dark:bg-gray-800 min-h-[200px]">
+        <div className="rounded-lg bg-gray-100 dark:bg-gray-800 min-h-[200px]">
           {tabs.find((tab) => tab.id === activeTab)?.component || (
             <p className="text-gray-500 dark:text-gray-400">
               No content for this tab.

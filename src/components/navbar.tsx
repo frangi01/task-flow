@@ -15,6 +15,8 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import SidebarContent from "./sidebar-content";
+import dynamic from 'next/dynamic'
+
 
 export default function Navbar() {
   const toggleTranslateX = (id: string) => {
@@ -23,6 +25,9 @@ export default function Navbar() {
       el.classList.toggle("-translate-x-full");
     }
   };
+
+  const ThemeSwitch = dynamic(() => import('./theme'), { ssr: false })
+
 
   return (
     <Disclosure
@@ -44,15 +49,7 @@ export default function Navbar() {
             </DisclosureButton>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <button
-              type="button"
-              className="relative rounded-full p-1 text-gray-400 dark:hover:text-white cursor-pointer"
-              onClick={() => document.documentElement.classList.toggle("dark")}
-            >
-              <span className="absolute -inset-1.5" />
-              <span className="sr-only">Toggle Dark Mode</span>
-              <SunIcon aria-hidden="true" className="size-6" />
-            </button>
+            <ThemeSwitch />
 
             <button
               type="button"
