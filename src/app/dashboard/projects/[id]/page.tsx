@@ -1,6 +1,14 @@
 "use client";
 import { CiGlobe, CiClock1, CiSettings, CiCalendar } from "react-icons/ci";
-import { GoPeople } from "react-icons/go";
+import { LuRows3, LuFolderCheck, LuTextCursorInput } from "react-icons/lu";
+import { MdOutlineWebStories } from "react-icons/md";
+import {
+  GoPeople,
+  GoGoal,
+  GoArchive,
+  GoRocket,
+  GoShieldLock,
+} from "react-icons/go";
 import { FaHouse } from "react-icons/fa6";
 import { useEffect, useState, useRef, useMemo } from "react";
 import { useParams } from "next/navigation";
@@ -10,6 +18,8 @@ import { BsClock } from "react-icons/bs";
 import TabSummary from "@/components/projects/tabs/summary";
 import React from "react";
 import TabTimeline from "@/components/projects/tabs/timeline";
+import TaskTimeline from "@/components/projects/tabs/timeline2";
+import TabBacklog from "../../../../components/projects/tabs/backlog";
 
 interface Tab {
   id: string;
@@ -35,9 +45,14 @@ export default function DashboardPage() {
         id: "timeline",
         label: "Timeline",
         icon: <BsClock size={16} />,
-        component: <TabTimeline />,
+        component: <TaskTimeline />,
       },
-      { id: "backlog", label: "Backlog", icon: null, component: null },
+      {
+        id: "backlog",
+        label: "Backlog",
+        icon: <LuRows3 size={16} />,
+        component: <TabBacklog />,
+      },
       {
         id: "board",
         label: "Board",
@@ -56,20 +71,60 @@ export default function DashboardPage() {
         icon: <CgList size={16} />,
         component: null,
       },
-      { id: "forms", label: "Forms", icon: null, component: null },
-      { id: "goals", label: "Goals", icon: null, component: null },
-      { id: "development", label: "Development", icon: null, component: null },
+      {
+        id: "forms",
+        label: "Forms",
+        icon: <LuTextCursorInput size={16} />,
+        component: null,
+      },
+      {
+        id: "goals",
+        label: "Goals",
+        icon: <GoGoal size={16} />,
+        component: null,
+      },
+      {
+        id: "development",
+        label: "Development",
+        icon: <CgCodeSlash size={16} />,
+        component: null,
+      },
       {
         id: "code",
         label: "Code",
         icon: <CgCodeSlash size={16} />,
         component: null,
       },
-      { id: "security", label: "Security", icon: null, component: null },
-      { id: "releases", label: "Releases", icon: null, component: null },
-      { id: "deployments", label: "Deployments", icon: null, component: null },
-      { id: "archive", label: "Archive", icon: null, component: null },
-      { id: "pages", label: "Pages", icon: null, component: null },
+      {
+        id: "security",
+        label: "Security",
+        icon: <GoShieldLock size={16} />,
+        component: null,
+      },
+      {
+        id: "releases",
+        label: "Releases",
+        icon: <LuFolderCheck size={16} />,
+        component: null,
+      },
+      {
+        id: "deployments",
+        label: "Deployments",
+        icon: <GoRocket size={16} />,
+        component: null,
+      },
+      {
+        id: "archive",
+        label: "Archive",
+        icon: <GoArchive size={16} />,
+        component: null,
+      },
+      {
+        id: "pages",
+        label: "Pages",
+        icon: <MdOutlineWebStories size={16} />,
+        component: null,
+      },
       {
         id: "shortcuts",
         label: "Shortcuts",
@@ -179,7 +234,10 @@ export default function DashboardPage() {
           >
             {tabs
               .filter((tab) => !hiddenTabs.includes(tab))
-              .map((tab) => (
+              .map(tab => (
+                
+              
+            
                 <li key={tab.id} className="flex-shrink-0" role="presentation">
                   <button
                     onClick={() => setActiveTab(tab.id)}
@@ -196,7 +254,8 @@ export default function DashboardPage() {
                     {tab.label}
                   </button>
                 </li>
-              ))}
+              ))
+              }
 
             {hiddenTabs.length > 0 && (
               <li className="flex-shrink-0 relative">

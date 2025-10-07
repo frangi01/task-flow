@@ -55,7 +55,23 @@ export default function TabTimeline() {
       defaultStartDateMillis: new Date(2015, 3, 28),
     },
   };
+
+
+  const columns2 = [
+  { type: "string", id: "President" },
+  { type: "date", id: "Start" },
+  { type: "date", id: "End" },
+];
+
+const rows2 = [
+  ["Washington", new Date(1789, 3, 30), new Date(1797, 2, 4)],
+  ["Adams", new Date(1797, 2, 4), new Date(1801, 2, 4)],
+  ["Jefferson", new Date(1801, 2, 4), new Date(1809, 2, 4)],
+];
+  const data2 = [columns2, ...rows2];
+
   return (
+    <>
     <Chart
       chartType="Gantt"
       width="100%"
@@ -63,5 +79,8 @@ export default function TabTimeline() {
       data={data}
       options={options}
     />
+     <Chart chartType="Timeline" data={data2} width="100%" height="100%" />;
+    </>
+    
   );
 }
